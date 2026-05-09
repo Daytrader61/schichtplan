@@ -3,410 +3,372 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-<title>Schichtplan · Lisa</title>
+<title>Schlichtplan · Lisa</title>
 <style>
 :root {
-  --bg: #f5f6fa; --card: #fff; --text: #1a1a2e; --text2: #888;
-  --accent: #ff6b35; --accent2: #1a1a2e; --border: #e0e0e0;
-  --shadow: 0 2px 8px rgba(0,0,0,0.06);
-  --s-f: #c8e6c9; --s-s: #ffe0b2; --s-n: #c5cae9; --s-m: #e1bee7; --s-free: #cfd8dc; --s-urlaub: #b2ebf2; --s-krank: #ffcdd2;
+  --bg:#f5f6fa; --card:#fff; --text:#1a1a2e; --t2:#888;
+  --a:#ff6b35; --a2:#1a1a2e; --brd:#ddd; --sh:0 2px 8px rgba(0,0,0,.06);
+  --sf:#c8e6c9; --ss:#ffe0b2; --sn:#c5cae9; --sm:#e1bee7; --sx:#cfd8dc; --su:#b2ebf2; --sk:#ffcdd2;
 }
-[data-theme="dark"] {
-  --bg: #121212; --card: #1e1e24; --text: #eee; --text2: #999; --border: #2a2a35; --shadow: 0 2px 12px rgba(0,0,0,0.4); --accent2: #ddd;
-  --s-f: #1b5e20; --s-s: #e65100; --s-n: #1a237e; --s-m: #4a148c; --s-free: #37474f; --s-urlaub: #006064; --s-krank: #b71c1c;
+.dark {
+  --bg:#121212; --card:#1e1e24; --text:#eee; --t2:#999; --brd:#2a2a35; --sh:0 2px 12px rgba(0,0,0,.4); --a2:#ddd;
+  --sf:#1b5e20; --ss:#e65100; --sn:#1a237e; --sm:#4a148c; --sx:#37474f; --su:#006064; --sk:#b71c1c;
 }
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-.header {
-  background: var(--accent2); color: #fff; padding: 14px 20px;
-  display: flex; align-items: center; justify-content: space-between;
-  position: sticky; top:0; z-index: 10;
-}
-.header h1 { font-size: 18px; }
-.header-actions { display: flex; gap: 6px; }
-.btn {
-  display: inline-flex; align-items: center; gap: 5px; padding: 7px 13px;
-  border: none; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600;
-  background: var(--card); color: var(--text); border: 2px solid var(--border);
-  transition: all .15s;
-}
-.btn:hover { filter: brightness(0.94); }
-.btn-a { background: var(--accent); color: #fff; border-color: var(--accent); }
-.btn-o { border-color: var(--accent); color: var(--accent); }
-.btn-g { border: none; background: transparent; color: var(--text2); }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.topbar{background:var(--a2);color:#fff;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.topbar h1{font-size:17px}
+.topbar .acts{display:flex;gap:4px}
+.btn{display:inline-flex;align-items:center;gap:4px;padding:7px 12px;border:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;background:var(--card);color:var(--text);border:2px solid var(--brd);transition:all .15s;white-space:nowrap}
+.btn:active{transform:scale(.96)}
+.btn-p{background:var(--a);color:#fff;border-color:var(--a)}
+.btn-o{border-color:var(--a);color:var(--a);background:transparent}
+.btn-g{border:none;background:transparent;color:var(--t2)}
+main{max-width:1000px;margin:0 auto;padding:12px}
 
-main { max-width: 1100px; margin: 0 auto; padding: 14px; }
+.tabs{display:flex;gap:2px;margin-bottom:12px;background:var(--card);border-radius:12px;padding:3px;box-shadow:var(--sh)}
+.tabs button{flex:1;padding:10px 6px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;border-radius:10px;color:var(--t2);border:none;background:transparent}
+.tabs button.on{background:var(--a);color:#fff}
 
-.tabs { display: flex; gap: 2px; margin-bottom: 14px; background: var(--card); border-radius: 12px; padding: 4px; box-shadow: var(--shadow); }
-.tab {
-  flex: 1; padding: 10px; text-align: center; font-size: 13px; font-weight: 600;
-  cursor: pointer; border-radius: 10px; color: var(--text2); border: none; background: transparent;
-}
-.tab.active { background: var(--accent); color: #fff; }
+.card{background:var(--card);border-radius:14px;padding:14px;box-shadow:var(--sh);margin-bottom:12px;border:1px solid var(--brd)}
 
-.card { background: var(--card); border-radius: 14px; padding: 16px; box-shadow: var(--shadow); margin-bottom: 14px; border: 1px solid var(--border); }
+.ma-bar{display:flex;flex-wrap:wrap;gap:6px}
+.ma-tag{display:flex;align-items:center;gap:5px;padding:5px 12px;border-radius:14px;font-size:12px;background:var(--bg);border:2px solid var(--brd)}
+.ma-dot{width:9px;height:9px;border-radius:50%;display:inline-block}
 
-/* Mitarbeiter */
-.ma-bar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-.ma-badge { display: flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 16px; font-size: 13px; background: var(--bg); border: 2px solid var(--border); }
-.ma-color { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.wn{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.wn .lbl{font-size:15px;font-weight:700;min-width:180px}
+.wn .sub{font-size:11px;color:var(--t2);display:block}
 
-/* Week nav */
-.week-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-.week-info { font-size: 15px; font-weight: 700; min-width: 220px; }
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tbl{width:100%;border-collapse:collapse;min-width:600px}
+.tbl th{background:var(--a2);color:#fff;padding:7px 3px;font-size:11px;border:1px solid rgba(255,255,255,.15)}
+.tbl td{border:1px solid var(--brd);padding:4px 2px;text-align:center;min-width:70px}
+.tbl td:first-child{font-weight:700;background:var(--bg);white-space:nowrap;font-size:12px;min-width:60px}
+.tbl select{width:100%;padding:6px 0;border:none;background:transparent;font-size:11px;font-weight:600;text-align:center;cursor:pointer;color:var(--text);-webkit-appearance:none;-moz-appearance:none;appearance:none}
+.tbl select:focus{outline:2px solid var(--a);border-radius:4px}
+.tbl .ni{width:100%;padding:3px;border:none;background:transparent;font-size:10px;text-align:center;color:var(--t2);border-bottom:1px dotted var(--brd);outline:none}
+.sf{background:var(--sf)!important}.ss{background:var(--ss)!important}.sn{background:var(--sn)!important}.sm{background:var(--sm)!important}.sx{background:var(--sx)!important}.su{background:var(--su)!important}.sk{background:var(--sk)!important}
 
-/* Plan table */
-.tbl-wrap { overflow-x: auto; }
-.tbl { width: 100%; border-collapse: collapse; min-width: 650px; }
-.tbl th {
-  background: var(--accent2); color: #fff; padding: 8px 4px; font-size: 11px;
-  border: 1px solid rgba(255,255,255,0.15); white-space: nowrap; position: sticky; top: 0;
-}
-.tbl td { border: 1px solid var(--border); padding: 2px; text-align: center; }
-.tbl td:first-child { font-weight: 700; background: var(--bg); white-space: nowrap; font-size: 12px; }
-.tbl select { width: 95%; padding: 5px 0; border: none; background: transparent; font-size: 11px; font-weight: 600; text-align: center; cursor: pointer; appearance: none; -webkit-appearance: none; }
-.tbl .note-inp { width: 95%; padding: 3px; border: none; background: transparent; font-size: 10px; text-align: center; color: var(--text2); border-bottom: 1px dotted var(--border); outline: none; }
+.bb{display:flex;gap:5px;margin-top:10px;flex-wrap:wrap}
 
-.bulk-btns { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+.maf{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:flex-end}
+.maf input,.maf select{padding:8px 10px;border:2px solid var(--brd);border-radius:8px;font-size:13px;background:var(--bg);color:var(--text)}
 
-/* Shift colors */
-.s-f { background: var(--s-f) !important; } .s-s { background: var(--s-s) !important; }
-.s-n { background: var(--s-n) !important; } .s-m { background: var(--s-m) !important; }
-.s-free { background: var(--s-free) !important; } .s-urlaub { background: var(--s-urlaub) !important; }
-.s-krank { background: var(--s-krank) !important; }
+.ocr{border:2px dashed var(--brd);border-radius:14px;padding:28px;text-align:center;cursor:pointer;transition:.2s}
+.ocr:active{border-color:var(--a);background:rgba(255,107,53,.03)}
+.ocr-r{margin-top:10px;max-height:180px;overflow-y:auto;font-size:12px;background:var(--bg);padding:10px;border-radius:8px;white-space:pre-wrap}
+.h{display:none!important}
 
-/* MA editor */
-.ma-form { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; align-items: flex-end; }
-.ma-form input, .ma-form select { padding: 8px 12px; border: 2px solid var(--border); border-radius: 8px; font-size: 13px; background: var(--bg); color: var(--text); }
+#toast{position:fixed;bottom:16px;right:16px;padding:10px 18px;background:var(--a2);color:#fff;border-radius:10px;font-size:13px;font-weight:600;z-index:999;pointer-events:none;opacity:0;transform:translateY(12px);transition:all .25s}
+#toast.on{opacity:1;transform:translateY(0)}
 
-/* OCR */
-.ocr-zone {
-  border: 2px dashed var(--border); border-radius: 14px; padding: 30px;
-  text-align: center; cursor: pointer; transition: all .2s;
-}
-.ocr-zone:hover { border-color: var(--accent); }
-.ocr-result { margin-top: 10px; max-height: 200px; overflow-y: auto; font-size: 12px; background: var(--bg); padding: 10px; border-radius: 8px; white-space: pre-wrap; }
-.hidden { display: none !important; }
-
-/* Toast */
-#toast {
-  position: fixed; bottom: 16px; right: 16px; padding: 10px 18px;
-  background: var(--accent2); color: #fff; border-radius: 10px;
-  font-size: 13px; font-weight: 600; z-index: 999; pointer-events: none;
-  opacity: 0; transform: translateY(12px); transition: all .25s;
-}
-#toast.show { opacity: 1; transform: translateY(0); }
-
-@media (max-width: 600px) {
-  .header h1 { font-size: 15px; }
-  .tabs { border-radius: 8px; }
-  .tab { font-size: 11px; padding: 8px 4px; }
-  .week-info { font-size: 13px; min-width: 150px; }
+@media(max-width:400px){
+  .topbar h1{font-size:15px}
+  .tabs button{font-size:11px;padding:8px 4px}
+  .wn .lbl{font-size:13px;min-width:130px}
 }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <h1>⛽ Schichtplan · Total/Allguth</h1>
-  <div class="header-actions">
-    <button class="btn btn-g" onclick="undo()" id="uBtn" disabled>↩</button>
-    <button class="btn btn-g" onclick="redo()" id="rBtn" disabled>↪</button>
-    <button class="btn btn-g" onclick="toggleDark()">🌓</button>
-    <button class="btn btn-a" onclick="exportPDF()">📄 PDF</button>
+<div class="topbar">
+  <h1>⛽ Schichtplan</h1>
+  <div class="acts">
+    <button class="btn btn-g" id="ub" disabled onclick="un()">↩</button>
+    <button class="btn btn-g" id="rb" disabled onclick="re()">↪</button>
+    <button class="btn btn-g" onclick="drk()">🌓</button>
+    <button class="btn btn-p" onclick="pdf()">📄</button>
   </div>
 </div>
 
-<main>
+<main id="app">
   <div class="tabs">
-    <button class="tab active" data-t="plan">📅 Plan</button>
-    <button class="tab" data-t="ma">👥 Team</button>
-    <button class="tab" data-t="scan">📸 Scan</button>
+    <button class="on" data-t="plan">📅 Plan</button>
+    <button data-t="ma">👥 Team</button>
+    <button data-t="scan">📸 Scan</button>
   </div>
-
-  <!-- PLAN TAB -->
-  <div id="plan-tab">
-    <div class="card">
-      <div class="ma-bar" id="maBadges"></div>
-    </div>
-    <div class="card">
-      <div class="week-row">
-        <button class="btn btn-o" onclick="nav(-1)">◀</button>
-        <div class="week-info" id="wk"></div>
-        <button class="btn btn-o" onclick="nav(1)">▶</button>
-        <button class="btn" onclick="nav(0)">📍 Heute</button>
-      </div>
-      <div class="tbl-wrap">
-        <table class="tbl" id="plan"></table>
-      </div>
-      <div class="bulk-btns">
-        <button class="btn" onclick="fill('06-14')">🌅 Alle Früh</button>
-        <button class="btn" onclick="fill('14-22')">🌙 Alle Spät</button>
-        <button class="btn" onclick="fill('22-06')">🌃 Alle Nacht</button>
-        <button class="btn" onclick="copyPrev()">📋 Letzte Woche</button>
-        <button class="btn btn-a" onclick="smartFill()">🧠 Smart Fill</button>
-        <button class="btn" onclick="clr()">🗑 Leeren</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MA TAB -->
-  <div id="ma-tab" class="hidden">
-    <div class="card">
-      <h2 style="margin-bottom:12px;">👥 Mitarbeiter</h2>
-      <div id="maList"></div>
-      <div class="ma-form">
-        <input id="mN" placeholder="Name">
-        <select id="mC"><option value="#ff6b35">🟠</option><option value="#4caf50">🟢</option><option value="#3f51b5">🔵</option><option value="#f44336">🔴</option><option value="#9c27b0">🟣</option><option value="#00bcd4">🩵</option></select>
-        <select id="mM"><option value="7">7</option><option value="6">6</option><option value="5">5</option><option value="4">4</option><option value="3">3</option></select>
-        <button class="btn btn-a" onclick="addMa()">+ Hinzufügen</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- SCAN TAB -->
-  <div id="scan-tab" class="hidden">
-    <div class="card">
-      <h2 style="margin-bottom:12px;">📸 Schichtplan einscannen</h2>
-      <div class="ocr-zone" onclick="document.getElementById('sF').click()">
-        <div style="font-size:36px;">📷</div>
-        <div style="font-weight:600;">Foto hochladen</div>
-        <div style="font-size:11px;color:var(--text2)">Handschriftlicher Plan oder Screenshot</div>
-        <input type="file" id="sF" accept="image/*" capture="environment" style="display:none" onchange="scan(this.files[0])">
-      </div>
-      <div id="sStat" style="margin-top:6px;font-size:13px;"></div>
-      <div id="sPrev" class="ocr-result hidden"></div>
-      <div id="sBtns" class="hidden" style="margin-top:8px;display:flex;gap:8px;">
-        <button class="btn btn-a" onclick="applyScan()">✅ Übernehmen</button>
-        <button class="btn" onclick="cancelScan()">Abbrechen</button>
-      </div>
-    </div>
-  </div>
+  <div id="plan-tab"><div id="planContent">Lade...</div></div>
+  <div id="ma-tab" class="h"></div>
+  <div id="scan-tab" class="h"></div>
 </main>
-
 <div id="toast"></div>
 
-<script src="https://unpkg.com/tesseract.js@5/dist/tesseract.min.js"></script>
 <script>
-// ===== STATE =====
-let D = { ma: [], sc: {}, nt: {}, cfg: { dark: false } };
-let w = 0, undo=[], redo=[], scanR=null;
-let T = ['Mo','Di','Mi','Do','Fr','Sa','So'];
-let SH = ['06-14','14-22','22-06','10-18','Frei','Urlaub','Krank'];
-let SH_C = {'06-14':'s-f','14-22':'s-s','22-06':'s-n','10-18':'s-m','Frei':'s-free','Urlaub':'s-urlaub','Krank':'s-krank'};
+(function(){'use strict';
+var D={ma:[],sc:{},nt:{},cfg:{d:0}};
+var W=0,U=[],R=[],SR=null;
+var TG=['Mo','Di','Mi','Do','Fr','Sa','So'];
+var SH=['06-14','14-22','22-06','10-18','Frei','Urlaub','Krank'];
+var CL={'06-14':'sf','14-22':'ss','22-06':'sn','10-18':'sm','Frei':'sx','Urlaub':'su','Krank':'sk'};
 
-// ===== PERSISTENCE (LocalStorage) =====
-function save() {
-  pushU(); localStorage.setItem('sp_data', JSON.stringify(D)); renderAll();
-}
-function load() {
-  try { const r = localStorage.getItem('sp_data'); if (r) D = JSON.parse(r); if (!D.cfg) D.cfg = {dark:false}; }
-  catch {}
-  if (D.cfg.dark) document.documentElement.setAttribute('data-theme','dark');
-  renderAll();
+// ==== STORAGE ====
+function LD(){
+  try{var r=localStorage.getItem('sp_v3');if(r){D=JSON.parse(r);if(!D.cfg)D.cfg={d:0};}}
+  catch(e){console.log('Load error',e);}
+  if(D.cfg.d)document.body.className='dark';
 }
 
-function pushU() {
-  undo.push(JSON.parse(JSON.stringify(D.sc))); if (undo.length>30) undo.shift(); redo=[];
-  document.getElementById('uBtn').disabled = false; document.getElementById('rBtn').disabled = true;
+function SV(){
+  UP();try{localStorage.setItem('sp_v3',JSON.stringify(D));}catch(e){}
 }
 
-function undo() {
-  if (!undo.length) return;
-  redo.push(JSON.parse(JSON.stringify(D.sc))); D.sc = undo.pop();
-  localStorage.setItem('sp_data', JSON.stringify(D)); renderPlan();
-  document.getElementById('uBtn').disabled = !undo.length;
-  document.getElementById('rBtn').disabled = !redo.length;
+// ==== UNDO ====
+function UP(){
+  U.push(JSON.stringify({sc:D.sc,nt:D.nt}));if(U.length>30)U.shift();R=[];
+  E('ub').disabled=false;E('rb').disabled=true;
+}
+function UN(){
+  if(!U.length)return;
+  R.push(JSON.stringify({sc:D.sc,nt:D.nt}));
+  var s=JSON.parse(U.pop());D.sc=s.sc;D.nt=s.nt;
+  try{localStorage.setItem('sp_v3',JSON.stringify(D));}catch(e){}
+  RP();E('ub').disabled=!U.length;E('rb').disabled=!R.length;
+}
+function RE(){
+  if(!R.length)return;
+  U.push(JSON.stringify({sc:D.sc,nt:D.nt}));
+  var s=JSON.parse(R.pop());D.sc=s.sc;D.nt=s.nt;
+  try{localStorage.setItem('sp_v3',JSON.stringify(D));}catch(e){}
+  RP();E('ub').disabled=!U.length;E('rb').disabled=!R.length;
 }
 
-function redo() {
-  if (!redo.length) return;
-  undo.push(JSON.parse(JSON.stringify(D.sc))); D.sc = redo.pop();
-  localStorage.setItem('sp_data', JSON.stringify(D)); renderPlan();
-  document.getElementById('uBtn').disabled = !undo.length;
-  document.getElementById('rBtn').disabled = !redo.length;
+// ==== WEEK ====
+function WI(d){
+  var n=new Date(),day=n.getDay()||7;
+  var m=new Date(n);m.setDate(n.getDate()-day+1+d*7);
+  var dts=[];
+  for(var i=0;i<7;i++){var x=new Date(m);x.setDate(m.getDate()+i);dts.push(x);}
+  var y=dts[0].getFullYear(),j1=new Date(y,0,1);
+  var kw=Math.ceil((Math.floor((dts[0]-j1)/86400000)+j1.getDay()+1)/7);
+  var rng=dts[0].toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'})+' - '+dts[6].toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'});
+  return{kw:'KW '+kw,rng:rng,dts:dts};
 }
 
-// ===== WEEK =====
-function wi(d) {
-  const n = new Date(); const day = n.getDay()||7;
-  const m = new Date(n); m.setDate(n.getDate()-day+1+d*7);
-  const dts = []; for (let i=0;i<7;i++) { const x=new Date(m); x.setDate(m.getDate()+i); dts.push(x); }
-  const y = dts[0].getFullYear(); const j1 = new Date(y,0,1);
-  const kw = Math.ceil((Math.floor((dts[0]-j1)/86400000)+j1.getDay()+1)/7);
-  const rng = dts[0].toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'})+' – '+dts[6].toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'});
-  return {kw:`KW ${kw}`,rng,dts};
+function E(id){return document.getElementById(id);}
+
+// ==== ESCAPE ====
+function ES(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function EA(s){return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;');}
+
+// ==== RENDER PLAN ====
+function RP(){
+  var wi=WI(W);
+  E('planContent').innerHTML='<div class="card"><div class="ma-bar">'+
+    (D.ma.length?D.ma.map(function(m){return'<span class="ma-tag" style="border-color:'+(m.c||'#ff6b35')+'"><span class="ma-dot" style="background:'+(m.c||'#ff6b35')+'"></span>'+ES(m.n)+'</span>';}).join(''):'<span style="color:var(--t2);font-size:12px">Kein Team → Tab Team</span>')+
+    '</div></div>'+
+    '<div class="card">'+
+    '<div class="wn">'+
+    '<button class="btn btn-o" onclick="W+=-1;RP()">◀</button>'+
+    '<div><div class="lbl">'+wi.kw+'</div><div class="sub">'+wi.rng+'</div></div>'+
+    '<button class="btn btn-o" onclick="W+=1;RP()">▶</button>'+
+    '<button class="btn" onclick="W=0;RP()">📍 Heute</button>'+
+    '</div>'+
+    '<div class="scroll"><table class="tbl">'+
+    '<thead><tr><th>MA</th>'+TG.map(function(t,i){return'<th>'+t+'<br><span style="font-size:10px;font-weight:400">'+wi.dts[i].toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'})+'</span></th>';}).join('')+'</tr></thead>'+
+    '<tbody>'+
+    D.ma.map(function(m){
+      return'<tr><td>'+ES(m.n)+'</td>'+TG.map(function(tag){
+        var k=tag+'-'+m.n,sh=D.sc[k]||'',nt=D.nt[k]||'',cl=CL[sh]||'';
+        return'<td class="'+cl+'">'+
+          '<select onchange="SC(\''+EA(m.n)+'\',\''+tag+'\',this.value)">'+
+          '<option value="">—</option>'+SH.map(function(s){return'<option value="'+s+'"'+(sh===s?' selected':'')+'>'+s+'</option>';}).join('')+
+          '</select>'+
+          '<input class="ni" placeholder="Notiz" value="'+EA(nt)+'" onchange="NT(\''+EA(m.n)+'\',\''+tag+'\',this.value)">'+
+          '</td>';
+      }).join('')+'</tr>';
+    }).join('')+
+    '</tbody></table></div>'+
+    '<div class="bb">'+
+    '<button class="btn" onclick="FA(\'06-14\')">🌅 Alle Früh</button>'+
+    '<button class="btn" onclick="FA(\'14-22\')">🌙 Alle Spät</button>'+
+    '<button class="btn" onclick="FA(\'22-06\')">🌃 Alle Nacht</button>'+
+    '<button class="btn" onclick="CP()">📋 Letzte Woche</button>'+
+    '<button class="btn btn-p" onclick="SF()">🧠 Smart Fill</button>'+
+    '<button class="btn" onclick="CLR()">🗑 Leeren</button>'+
+    '</div></div>';
 }
 
-// ===== RENDER =====
-function renderAll() { renBadges(); renderPlan(); renMaList(); }
-
-function renBadges() {
-  document.getElementById('maBadges').innerHTML = D.ma.length
-    ? D.ma.map(m => `<span class="ma-badge" style="border-color:${m.c||'#ff6b35'}"><span class="ma-color" style="background:${m.c||'#ff6b35'}"></span>${esc(m.n)}</span>`).join('')
-    : '<span style="color:var(--text2);font-size:13px;">Keine MA → Tab "Team"</span>';
+// ==== SHIFT ACTIONS ====
+function SC(ma,tag,v){
+  var k=tag+'-'+ma;
+  UP();if(v)D.sc[k]=v;else delete D.sc[k];
+  try{localStorage.setItem('sp_v3',JSON.stringify(D));}catch(e){}
+  RP();
+}
+function NT(ma,tag,v){
+  var k=tag+'-'+ma;
+  if(v.trim())D.nt[k]=v;else delete D.nt[k];
+  try{localStorage.setItem('sp_v3',JSON.stringify(D));}catch(e){}
+}
+function FA(sh){
+  UP();TG.forEach(function(t){D.ma.forEach(function(m){D.sc[t+'-'+m.n]=sh;});});
+  SV();RP();T('✅ Alle '+sh);
+}
+function CLR(){
+  if(!confirm('Alle Schichten dieser Woche löschen?'))return;
+  UP();TG.forEach(function(t){D.ma.forEach(function(m){delete D.sc[t+'-'+m.n];delete D.nt[t+'-'+m.n];});});
+  SV();RP();T('🗑 Geleert');
+}
+function CP(){
+  UP();TG.forEach(function(t){D.ma.forEach(function(m){var k=t+'-'+m.n;if(D.sc[k]){var nk=t+'-'+m.n;D.sc[nk]=D.sc[k];}});});
+  SV();RP();T('📋 Kopiert');
+}
+function SF(){
+  UP();D.ma.forEach(function(m,i){var mx=m.m||5;TG.forEach(function(t,j){D.sc[t+'-'+m.n]=j<mx?(j<3?'06-14':'14-22'):'Frei';});});
+  SV();RP();T('🧠 Smart Fill');
 }
 
-function renderPlan() {
-  const {kw,rng,dts} = wi(w);
-  document.getElementById('wk').innerHTML = `${kw}<br><span style="font-size:11px;font-weight:400;color:var(--text2)">${rng}</span>`;
-
-  let h = '<thead><tr><th>MA</th>';
-  T.forEach((t,i) => h+=`<th>${t}<br><span style="font-size:10px;font-weight:400">${dts[i].toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'})}</span></th>`);
-  h+='</tr></thead>';
-
-  let b='<tbody>';
-  D.ma.forEach((m,mi) => {
-    b+=`<tr><td>${esc(m.n)}</td>`;
-    T.forEach((tag,ti) => {
-      const k=`${tag}-${m.n}`; const sh=D.sc[k]||''; const nt=D.nt[k]||''; const cl=SH_C[sh]||'';
-      b+=`<td class="${cl}">`;
-      b+=`<select onchange="setSc('${escA(m.n)}','${tag}',this.value)" style="color:var(--text);background:transparent"><option value="">—</option>`;
-      SH.forEach(s=>b+=`<option value="${s}" ${sh===s?'selected':''}>${s}</option>`);
-      b+=`</select>`;
-      b+=`<input class="note-inp" placeholder="Notiz" value="${escA(nt)}" onchange="setNt('${escA(m.n)}','${tag}',this.value)">`;
-      b+='</td>';
-    });
-    b+='</tr>';
-  });
-  b+='</tbody>';
-  document.getElementById('plan').innerHTML = h+b;
+// ==== MA MANAGEMENT ====
+function RML(){
+  E('ma-tab').innerHTML='<div class="card"><h2 style="margin-bottom:10px">👥 Team verwalten</h2>'+
+    (D.ma.length?
+      D.ma.map(function(m,i){
+        return'<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--brd)">'+
+          '<span class="ma-dot" style="background:'+(m.c||'#ff6b35')+'"></span><b>'+ES(m.n)+'</b>'+
+          '<span style="color:var(--t2);font-size:11px">Max: '+(m.m||5)+' Tage</span>'+
+          '<button class="btn" style="margin-left:auto;padding:4px 10px" onclick="RM('+i+')">✕</button></div>';
+      }).join('')
+    :'<div style="color:var(--t2);padding:10px 0">Noch kein Team.</div>')+
+    '<div class="maf">'+
+    '<input id="mn" placeholder="Name" style="flex:1;min-width:100px">'+
+    '<select id="mc"><option value="#ff6b35">🟠</option><option value="#4caf50">🟢</option><option value="#3f51b5">🔵</option><option value="#f44336">🔴</option><option value="#9c27b0">🟣</option><option value="#00bcd4">🩵</option></select>'+
+    '<select id="mm"><option value="7">7</option><option value="6">6</option><option value="5">5</option><option value="4">4</option><option value="3">3</option></select>'+
+    '<button class="btn btn-p" onclick="AM()">+ Hinzufügen</button></div></div>';
 }
 
-function renMaList() {
-  document.getElementById('maList').innerHTML = D.ma.length
-    ? D.ma.map((m,i)=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);"><span class="ma-color" style="background:${m.c||'#ff6b35'}"></span><b>${esc(m.n)}</b><span style="color:var(--text2);font-size:11px;">Max: ${m.m||5}</span><button class="btn" style="margin-left:auto;" onclick="rmMa(${i})">🗑</button></div>`).join('')
-    : '<span style="color:var(--text2)">Keine Mitarbeiter.</span>';
+function AM(){
+  var n=E('mn').value.trim();if(!n)return;
+  D.ma.push({n:n,c:E('mc').value,m:parseInt(E('mm').value)||5});
+  E('mn').value='';SV();RML();RP();T('✅ '+n);
+}
+function RM(i){
+  var m=D.ma[i];D.ma.splice(i,1);
+  Object.keys(D.sc).forEach(function(k){if(k.slice(-m.n.length)===m.n)delete D.sc[k];});
+  Object.keys(D.nt).forEach(function(k){if(k.slice(-m.n.length)===m.n)delete D.nt[k];});
+  SV();RML();RP();T('🗑 '+m.n);
 }
 
-function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function escA(s) { return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;'); }
-
-// ===== ACTIONS =====
-function setSc(ma,tag,v) { const k=`${tag}-${ma}`; if(v) D.sc[k]=v; else delete D.sc[k]; save(); renderPlan(); }
-function setNt(ma,tag,v) { const k=`${tag}-${ma}`; if(v.trim()) D.nt[k]=v; else delete D.nt[k]; save(); }
-function nav(d) { if(d===0) w=0; else w+=d; renderPlan(); }
-function fill(sh) {
-  pushU(); T.forEach(t=>D.ma.forEach(m=>D.sc[`${t}-${m.n}`]=sh));
-  save(); renderPlan(); toast('✅ Alle '+sh);
-}
-function clr() { if(!confirm('Alle Schichten dieser Woche löschen?')) return; pushU(); T.forEach(t=>D.ma.forEach(m=>{delete D.sc[`${t}-${m.n}`]; delete D.nt[`${t}-${m.n}`];})); save(); renderPlan(); toast('🗑 Geleert'); }
-function copyPrev() {
-  pushU(); T.forEach((t,i)=>{ D.ma.forEach(m=>{ const pk=`${t}-${m.n}`; if(D.sc[pk]) D.sc[`${t}-${m.n}`]=D.sc[pk]; }); });
-  save(); renderPlan(); toast('📋 Kopiert');
-}
-function smartFill() {
-  pushU(); D.ma.forEach((m,mi)=>{ const mx=m.m||5; T.forEach((t,i)=>{ if(i<mx) D.sc[`${t}-${m.n}`]=i<3?'06-14':'14-22'; else D.sc[`${t}-${m.n}`]='Frei'; }); });
-  save(); renderPlan(); toast('🧠 Smart Fill');
+// ==== SCAN TAB (OCR) ====
+function RSC(){
+  E('scan-tab').innerHTML='<div class="card"><h2 style="margin-bottom:10px">📸 Plan einscannen</h2>'+
+    '<div class="ocr" onclick="document.getElementById(\'sf\').click()">'+
+    '<div style="font-size:36px">📷</div><div style="font-weight:600;margin:6px 0">Foto hochladen</div>'+
+    '<div style="font-size:11px;color:var(--t2)">Handschriftlicher Plan oder Screenshot</div>'+
+    '<input type="file" id="sf" accept="image/*" capture="environment" style="display:none" onchange="SCF(this.files[0])">'+
+    '</div><div id="sst" style="margin-top:6px;font-size:13px"></div>'+
+    '<div id="spr" class="ocr-r h"></div><div id="sbt" class="h" style="margin-top:8px;display:flex;gap:8px">'+
+    '<button class="btn btn-p" onclick="ASC()">✅ Übernehmen</button>'+
+    '<button class="btn" onclick="CSC()">Abbrechen</button></div></div>';
 }
 
-// ===== MA =====
-function addMa() {
-  const n=document.getElementById('mN').value.trim(); if(!n) return;
-  D.ma.push({n,c:document.getElementById('mC').value,m:parseInt(document.getElementById('mM').value)||5});
-  document.getElementById('mN').value=''; save(); renderAll(); toast('✅ '+n);
-}
-function rmMa(i) {
-  const m=D.ma[i]; D.ma.splice(i,1); Object.keys(D.sc).forEach(k=>{if(k.endsWith(m.n))delete D.sc[k];});
-  Object.keys(D.nt).forEach(k=>{if(k.endsWith(m.n))delete D.nt[k];});
-  save(); renderAll(); toast('🗑 '+m.n);
+function SCF(file){
+  if(!file)return;
+  E('sst').textContent='🔍 Scanne...';
+  try{
+    var script=document.createElement('script');
+    script.src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+    script.onload=function(){doScan(file);};
+    script.onerror=function(){E('sst').textContent='❌ OCR konnte nicht geladen werden.';};
+    if(typeof Tesseract!=='undefined'){doScan(file);return;}
+    document.head.appendChild(script);
+  }catch(e){E('sst').textContent='❌ Fehler: '+e.message;}
 }
 
-// ===== OCR SCAN (Client-side Tesseract) =====
-async function scan(file) {
-  if(!file) return;
-  document.getElementById('sStat').textContent='🔍 Scanne...';
-  document.getElementById('sPrev').classList.add('hidden');
-  document.getElementById('sBtns').classList.add('hidden');
-
-  try {
-    const worker = await Tesseract.createWorker('deu');
-    const { data } = await worker.recognize(file);
+async function doScan(file){
+  try{
+    var worker=await Tesseract.createWorker('deu');
+    var ret=await worker.recognize(file);
     await worker.terminate();
-
-    const txt = data.text;
-    const parsed = parseTxt(txt);
-    document.getElementById('sStat').textContent='✅ Erkannt. Bitte prüfen & übernehmen.';
-    document.getElementById('sPrev').classList.remove('hidden');
-    document.getElementById('sPrev').textContent = 'MA: '+(parsed.ma||[]).join(', ')+'\nSchichten: '+JSON.stringify(parsed.sc||{});
-    document.getElementById('sBtns').classList.remove('hidden');
-    scanR = parsed;
-  } catch(e) {
-    document.getElementById('sStat').textContent='❌ Fehler: '+e.message;
-  }
+    var pr=PT(ret.data.text);
+    E('sst').textContent='✅ Erkannt. Prüfen & übernehmen.';
+    E('spr').classList.remove('h');
+    E('spr').textContent='MA: '+(pr.ma||[]).join(', ')+'\nSchichten: '+JSON.stringify(pr.sc||{});
+    E('sbt').classList.remove('h');SR=pr;
+  }catch(e){E('sst').textContent='❌ Scan-Fehler: '+e.message;}
 }
 
-function parseTxt(txt) {
-  const r={ma:[],sc:{}}; if(!txt) return r;
-  const lines=txt.split('\n').map(l=>l.trim()).filter(Boolean);
-  const tage=['mo','di','mi','do','fr','sa','so'];
-  for (const l of lines) {
-    const m = l.match(/([A-Za-zÄÖÜäöüß]{2,30})\s*[:]?\s*(\d{1,2})[.:](\d{1,2})/i);
-    if (m) {
-      const n=m[1].trim(); const sh=`${m[2].padStart(2,'0')}-${m[3].padStart(2,'0')}`;
-      if (sh==='06-14'||sh==='14-22'||sh==='22-06'||sh==='10-18') {
-        if(!r.ma.includes(n)) r.ma.push(n);
-        for(const t of tage) { if(l.toLowerCase().includes(t)) { r.sc[t.charAt(0).toUpperCase()+t.slice(1)+'-'+n]=sh; break; } }
+function PT(txt){
+  var r={ma:[],sc:{}};if(!txt)return r;
+  var ls=txt.split('\n').map(function(l){return l.trim();}).filter(Boolean);
+  var tg=['mo','di','mi','do','fr','sa','so'];
+  ls.forEach(function(l){
+    var m=l.match(/([A-Za-zÄÖÜäöüß]{2,30})\s*[:]?\s*(\d{1,2})[.:](\d{1,2})/i);
+    if(m){
+      var n=m[1].trim(),sh=m[2].padStart(2,'0')+'-'+m[3].padStart(2,'0');
+      if(sh==='06-14'||sh==='14-22'||sh==='22-06'||sh==='10-18'){
+        if(r.ma.indexOf(n)===-1)r.ma.push(n);
+        tg.forEach(function(t){if(l.toLowerCase().indexOf(t)!==-1){r.sc[t.charAt(0).toUpperCase()+t.slice(1)+'-'+n]=sh;}});
       }
     }
-  }
+  });
   return r;
 }
-
-function applyScan() {
-  if(!scanR) return;
-  pushU(); (scanR.ma||[]).forEach(n=>{if(!D.ma.find(m=>m.n===n)) D.ma.push({n,c:'#ff6b35',m:5});});
-  Object.assign(D.sc, scanR.sc||{});
-  save(); renderAll(); cancelScan(); toast('✅ Scan übernommen!');
+function ASC(){
+  if(!SR)return;UP();
+  (SR.ma||[]).forEach(function(n){if(!D.ma.find(function(m){return m.n===n;}))D.ma.push({n:n,c:'#ff6b35',m:5});});
+  Object.keys(SR.sc||{}).forEach(function(k){D.sc[k]=SR.sc[k];});
+  SV();RP();RML();CSC();T('✅ Scan übernommen!');
 }
-function cancelScan() {
-  scanR=null; document.getElementById('sPrev').classList.add('hidden');
-  document.getElementById('sBtns').classList.add('hidden'); document.getElementById('sStat').textContent='';
-}
+function CSC(){SR=null;E('spr').classList.add('h');E('sbt').classList.add('h');E('sst').textContent='';}
 
-// ===== PDF Export (client-side via print) =====
-function exportPDF() {
-  const {kw,rng,dts} = wi(w);
-  let html = `<html><head><meta charset="utf-8"><title>Schichtplan</title>
-<style>body{font-family:sans-serif;padding:20px;font-size:11px}
-h1{font-size:20px;text-align:center;margin:0}h3{text-align:center;color:#555;margin:4px 0 16px}
-table{width:100%;border-collapse:collapse}th{background:#1a1a2e;color:#fff;padding:8px 4px;font-size:10px}
-td{border:1px solid #ccc;padding:6px 4px;text-align:center;font-size:11px}td:first-child{font-weight:bold;background:#f5f5f5}
-</style></head><body>`;
-  html+=`<h1>SCHICHTPLAN</h1><h3>Total / Allguth Tankstelle</h3><h3>${kw} · ${rng}</h3>`;
-  html+=`<table><tr><th>MA</th>`;
-  T.forEach((t,i)=>html+=`<th>${t}<br>${dts[i].toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'})}</th>`);
-  html+='</tr>';
-  D.ma.forEach(m=>{
-    html+=`<tr><td><b>${esc(m.n)}</b></td>`;
-    T.forEach(t=>{ const k=`${t}-${m.n}`; const sh=D.sc[k]||''; const nt=D.nt[k]||'';
-      html+=`<td>${sh?`<b>${sh}</b>`:''}${sh&&nt?'<br>':''}${nt?`<span style="font-size:9px;color:#888">${nt}</span>`:''}</td>`; });
-    html+='</tr>';
+// ==== PDF ====
+function pdf(){
+  var wi=WI(W),wnd=window.open('','_blank','width=900,height=700');
+  var h='<!DOCTYPE html><html><head><meta charset="utf-8"><title>Schichtplan</title>'+
+    '<style>body{font-family:Arial,sans-serif;padding:16px;font-size:11px;color:#111}'+
+    'h1{font-size:20px;text-align:center;margin:0}h3{text-align:center;color:#555;margin:4px 0 12px}'+
+    'table{width:100%;border-collapse:collapse;margin-top:10px}'+
+    'th{background:#1a1a2e;color:#fff;padding:6px 3px;font-size:10px;border:1px solid rgba(255,255,255,.2)}'+
+    'td{border:1px solid #ccc;padding:5px 3px;text-align:center;font-size:11px}td:first-child{font-weight:bold;background:#f5f5f5}'+
+    '@media print{@page{size:A4 landscape;margin:4mm}}</style></head><body>'+
+    '<h1>SCHICHTPLAN</h1><h3>Total / Allguth Tankstelle</h3><h3>'+wi.kw+' · '+wi.rng+'</h3>'+
+    '<table><thead><tr><th>MA</th>'+TG.map(function(t,i){return'<th>'+t+'<br>'+wi.dts[i].toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'})+'</th>';}).join('')+'</tr></thead><tbody>';
+  D.ma.forEach(function(m){
+    h+='<tr><td><b>'+ES(m.n)+'</b></td>';
+    TG.forEach(function(t){var k=t+'-'+m.n,sh=D.sc[k]||'',nt=D.nt[k]||'';
+      h+='<td>'+(sh?'<b>'+sh+'</b>':'')+(sh&&nt?'<br>':'')+(nt?'<span style="font-size:9px;color:#888">'+nt+'</span>':'')+'</td>';});
+    h+='</tr>';
   });
-  html+=`</table><p style="text-align:center;color:#999;margin-top:20px;font-size:10px">Erstellt ${new Date().toLocaleDateString('de-DE')}</p></body></html>`;
-  const wnd=window.open('','_blank','width=900,height=700');
-  wnd.document.write(html); wnd.document.close(); setTimeout(()=>wnd.print(), 500);
+  h+='</tbody></table><p style="text-align:center;color:#999;margin-top:16px;font-size:10px">Erstellt '+new Date().toLocaleDateString('de-DE')+'</p></body></html>';
+  wnd.document.write(h);wnd.document.close();setTimeout(function(){wnd.print();},600);
 }
 
-// ===== TABS =====
-document.querySelectorAll('.tab').forEach(b=>{b.onclick=()=>{
-  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-  b.classList.add('active');
-  document.querySelectorAll('#plan-tab,#ma-tab,#scan-tab').forEach(x=>x.classList.add('hidden'));
-  document.getElementById(b.dataset.t+'-tab').classList.remove('hidden');
-  if(b.dataset.t==='ma') renMaList();
-}});
-
-function toggleDark() {
-  const d = document.documentElement.getAttribute('data-theme') !== 'dark';
-  document.documentElement.setAttribute('data-theme', d?'dark':'light');
-  D.cfg.dark = d; save();
+// ==== DARK MODE ====
+function drk(){
+  D.cfg.d=!D.cfg.d;
+  document.body.className=D.cfg.d?'dark':'';
+  try{localStorage.setItem('sp_v3',JSON.stringify(D));}catch(e){}
 }
 
-function toast(m) { const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2000); }
+// ==== TOAST ====
+function T(msg){
+  var t=E('toast');t.textContent=msg;t.classList.add('on');
+  setTimeout(function(){t.classList.remove('on');},2000);
+}
 
-// ===== INIT =====
-load();
+// ==== TABS ====
+document.querySelectorAll('.tabs button').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.tabs button').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on');
+    var t=b.dataset.t;
+    E('plan-tab').classList.toggle('h',t!=='plan');
+    E('ma-tab').classList.toggle('h',t!=='ma');
+    E('scan-tab').classList.toggle('h',t!=='scan');
+    if(t==='ma')RML();
+    if(t==='scan')RSC();
+  });
+});
+
+// ==== EXPOSE GLOBALS ====
+window.W=W;window.RP=RP;window.SC=SC;window.NT=NT;window.FA=FA;window.CLR=CLR;window.CP=CP;window.SF=SF;
+window.RM=RM;window.AM=AM;window.un=UN;window.re=RE;window.drk=drk;
+window.SCF=SCF;window.ASC=ASC;window.CSC=CSC;window.pdf=pdf;
+
+// ==== INIT ====
+LD();RP();RML();RSC();
+})();
 </script>
 </body>
 </html>
