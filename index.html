@@ -99,8 +99,22 @@ main{max-width:1000px;margin:0 auto;padding:12px}
 var D={ma:[],sc:{},nt:{},cfg:{d:0}};
 var W=0,U=[],R=[],SR=null;
 var TG=['Mo','Di','Mi','Do','Fr','Sa','So'];
-var SH=['06-14','14-22','22-06','10-18','Frei','Urlaub','Krank'];
-var CL={'06-14':'sf','14-22':'ss','22-06':'sn','10-18':'sm','Frei':'sx','Urlaub':'su','Krank':'sk'};
+var SH=['06-14','14-22','22-06','10-18','08-16','07-15','09-17','12-20','Frei','Urlaub','Krank'];
+var CL={};SH.forEach(function(s){CL[s]=CL[s]||shCls(s);});
+function shCls(v){
+  if(!v||v==='—')return'';
+  if(v==='Frei'||v==='frei')return'sx';
+  if(v==='Urlaub'||v==='urlaub')return'su';
+  if(v==='Krank'||v==='krank')return'sk';
+  if(v.indexOf('06')===0)return'sf';
+  if(v.indexOf('14')===0)return'ss';
+  if(v.indexOf('22')===0)return'sn';
+  if(v.indexOf('10')===0)return'sm';
+  if(v.indexOf('08')===0||v.indexOf('09')===0||v.indexOf('07')===0)return'su';
+  if(v.indexOf('12')===0||v.indexOf('11')===0)return'ss';
+  if(/\d/.test(v))return'sf';
+  return'';
+}
 
 // ==== STORAGE ====
 function LD(){
@@ -169,11 +183,10 @@ function RP(){
     '<tbody>'+
     D.ma.map(function(m){
       return'<tr><td>'+ES(m.n)+'</td>'+TG.map(function(tag){
-        var k=tag+'-'+m.n,sh=D.sc[k]||'',nt=D.nt[k]||'',cl=CL[sh]||'';
+        var k=tag+'-'+m.n,sh=D.sc[k]||'',nt=D.nt[k]||'',cl=shCls(sh)||CL[sh]||'';
         return'<td class="'+cl+'">'+
-          '<select onchange="SC(\''+EA(m.n)+'\',\''+tag+'\',this.value)">'+
-          '<option value="">—</option>'+SH.map(function(s){return'<option value="'+s+'"'+(sh===s?' selected':'')+'>'+s+'</option>';}).join('')+
-          '</select>'+
+          '<input style="font-size:12px;font-weight:600" class="ni" list="shlist" placeholder="z.B. 08-16" value="'+EA(sh)+'" onchange="SC(\''+EA(m.n)+'\',\''+tag+'\',this.value)">'+
+          '<datalist id="shlist">'+SH.map(function(s){return'<option value="'+s+'">';}).join('')+'</datalist>'+
           '<input class="ni" placeholder="Notiz" value="'+EA(nt)+'" onchange="NT(\''+EA(m.n)+'\',\''+tag+'\',this.value)">'+
           '</td>';
       }).join('')+'</tr>';
