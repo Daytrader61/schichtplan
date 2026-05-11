@@ -167,6 +167,7 @@ function EA(s){return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;')
 
 // ==== RENDER PLAN ====
 function RP(){
+  W = window.W || 0;
   var wi=WI(W);
   E('planContent').innerHTML='<div class="card"><div class="ma-bar">'+
     (D.ma.length?D.ma.map(function(m){return'<span class="ma-tag" style="border-color:'+(m.c||'#ff6b35')+'"><span class="ma-dot" style="background:'+(m.c||'#ff6b35')+'"></span>'+ES(m.n)+'</span>';}).join(''):'<span style="color:var(--t2);font-size:12px">Kein Team → Tab Team</span>')+
